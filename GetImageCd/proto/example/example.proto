@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package go.micro.srv.GetImageCd;
+
+service Example {
+	rpc GetImageCd(Request) returns (Response) {}
+	rpc Stream(StreamingRequest) returns (stream StreamingResponse) {}
+	rpc PingPong(stream Ping) returns (stream Pong) {}
+}
+
+message Message {
+	string say = 1;
+}
+
+message Request {
+	string Uuid = 1;
+}
+
+message Response {
+	string Error = 1;
+	string Errmsg = 2;
+
+	//Pix []uint8
+	//图片的结构元素
+    bytes  Pix = 3 ;
+    //Stride int
+    //图片的跨度
+    int64  Stride =4 ;
+
+    //type Point struct {
+    //	X, Y int
+    //}
+    //坐标
+    //用来代替Point
+    message Point{
+        int64 X =1;
+        int64 Y =2;
+    }
+
+    //Rect Rectangle
+    //type Rectangle struct {
+    //	Min, Max Point
+    //}
+    Point Min = 5 ;
+    Point Max = 6 ;
+
+
+}
+
+message StreamingRequest {
+	int64 count = 1;
+}
+
+message StreamingResponse {
+	int64 count = 1;
+}
+
+message Ping {
+	int64 stroke = 1;
+}
+
+message Pong {
+	int64 stroke = 1;
+}
